@@ -2,7 +2,7 @@
 
 <!DOCTYPE html >
 
-<html  >
+<html>
 <head runat="server">
     <title>Payment Processing</title>
 </head>

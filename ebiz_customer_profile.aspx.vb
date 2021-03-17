@@ -221,7 +221,7 @@ Partial Class ebiz_customer_profile
         "          <ebiz:UserId>" & TL_USER_ID & "</ebiz:UserId>" & _
         "           <ebiz:Password>" & TL_PASSWORD & "</ebiz:Password>" & _
         "         </ebiz:securityToken>" & _
-       "    <ebiz:customerId>" & ds1.rows(0)("CUSTOMER_NO") & "</ebiz:customerId>" & _
+       "    <ebiz:customerId>" & Replace(ds1.Rows(0)("CUSTOMER_NO").ToString(),"&","&amp;") & "</ebiz:customerId>" & _
        "</ebiz:GetCustomer>" & _
         "   </soapenv:Body>" & _
         "</soapenv:Envelope>")

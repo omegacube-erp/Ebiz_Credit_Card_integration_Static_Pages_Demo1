@@ -152,7 +152,8 @@ Partial Class Ebiz_integration_Cash_Receipts
 
                     If (dsfromname.Tables(0).Rows.Count > 0) Then
                         If Not (Equals(dsfromname.Tables(0).Rows(0)(0), System.DBNull.Value)) Then
-                            FROM_NAME = dsfromname.Tables(0).Rows(0)(0)
+                            'FROM_NAME = dsfromname.Tables(0).Rows(0)(0)
+							FROM_NAME = Replace(dsfromname.Tables(0).Rows(0)(0),"&","&amp;")
                         Else
                             FROM_NAME = ""
                         End If
@@ -326,7 +327,7 @@ Partial Class Ebiz_integration_Cash_Receipts
         "            <ebiz:EmailTemplateID/>" &
         "            <ebiz:EmailTemplateName/>" &
         "            <ebiz:SendEmailToCustomer>" & x1 & "</ebiz:SendEmailToCustomer>" &
-        "            <ebiz:CustomerId>" & ds1.Rows(0)("CUSTOMER_NO").ToString() & "</ebiz:CustomerId>" &
+        "            <ebiz:CustomerId>" & Replace(ds1.Rows(0)("CUSTOMER_NO").ToString(),"&","&amp;") & "</ebiz:CustomerId>" &
         "            <ebiz:CustFullName>" & Replace(ds1.Rows(0)("NAME").ToString(), "&", "&amp;") & "</ebiz:CustFullName>" &
         "            <ebiz:TransId>" & ds1.Rows(0)("INVOICE_NO").ToString() & "</ebiz:TransId>" &
         "            <ebiz:TransDetail>New Payment</ebiz:TransDetail>" &
@@ -346,8 +347,8 @@ Partial Class Ebiz_integration_Cash_Receipts
         "            <ebiz:BillingAddress>" &
         "            <ebiz:FirstName>" & ds1.Rows(0)("CONTACT_NAME").ToString() & "</ebiz:FirstName>" &
         "            <ebiz:LastName>" & ds1.Rows(0)("CONTACT_NAME").ToString() & "</ebiz:LastName>" &
-        "            <ebiz:CompanyName>" & ds1.Rows(0)("BILLING_NAME").ToString() & "</ebiz:CompanyName>" &
-        "            <ebiz:Address1>" & ds1.Rows(0)("BILLING_STREET").ToString() & "</ebiz:Address1>" &
+        "            <ebiz:CompanyName>" & Replace(ds1.Rows(0)("BILLING_NAME").ToString(),"&","&amp;") & "</ebiz:CompanyName>" &
+        "            <ebiz:Address1>" & Replace(ds1.Rows(0)("BILLING_STREET").ToString(),"&","&amp;") & "</ebiz:Address1>" &
         "            <ebiz:Address2></ebiz:Address2>" &
         "            <ebiz:Address3/>" &
         "            <ebiz:City>" & ds1.Rows(0)("BILLING_CITY").ToString() & "</ebiz:City>" &
@@ -355,7 +356,7 @@ Partial Class Ebiz_integration_Cash_Receipts
         "            <ebiz:ZipCode>" & ds1.Rows(0)("BILLING_POSTAL_CODE").ToString() & "</ebiz:ZipCode>" &
         "            <ebiz:Country>" & ds1.Rows(0)("BILLING_COUNTRY").ToString() & "</ebiz:Country>" &
         "            <ebiz:IsDefault>true</ebiz:IsDefault>" &
-        "            <ebiz:AddressId>" & ds1.Rows(0)("CUSTOMER_NO").ToString() & "_001</ebiz:AddressId>" &
+        "            <ebiz:AddressId>" & Replace(ds1.Rows(0)("CUSTOMER_NO").ToString(),"&","&amp;") & "_001</ebiz:AddressId>" &
         "            </ebiz:BillingAddress>" &
         "            <ebiz:ApprovedURL>" & TL_CLIENT & "eBiz_Cash_Receipt_cc_responce.aspx?PTYPE=" & ptype & "</ebiz:ApprovedURL>" &
         "            <ebiz:DeclinedURL>" & TL_CLIENT & "eBiz_Cash_Receipt_cc_responce.aspx?PTYPE=" & ptype & "</ebiz:DeclinedURL>" &

@@ -120,7 +120,8 @@ Partial Class eBiz_Customer
 
                     If (dsfromname.Tables(0).Rows.Count > 0) Then
                         If Not (Equals(dsfromname.Tables(0).Rows(0)(0), System.DBNull.Value)) Then
-                            FROM_NAME = dsfromname.Tables(0).Rows(0)(0)
+                            'FROM_NAME = dsfromname.Tables(0).Rows(0)(0)
+							FROM_NAME = Replace(dsfromname.Tables(0).Rows(0)(0),"&","&amp;")
                         Else
                             FROM_NAME = ""
                         End If
@@ -242,11 +243,11 @@ Partial Class eBiz_Customer
         "            <ebiz:BccEmailAddress/>" &
         "            <ebiz:EmailNotes>Customer Payment</ebiz:EmailNotes>" &
         "            <ebiz:SendEmailToCustomer>false</ebiz:SendEmailToCustomer>" &
-        "            <ebiz:CustomerId>" & ds1.Rows(0)("CUSTOMER_NO").ToString() & "</ebiz:CustomerId>" &
-        "            <ebiz:CustFullName>" & ds1.Rows(0)("NAME").ToString() & "</ebiz:CustFullName>" &
+        "            <ebiz:CustomerId>" & Replace(ds1.Rows(0)("CUSTOMER_NO").ToString(),"&","&amp;") & "</ebiz:CustomerId>" &
+        "            <ebiz:CustFullName>" & Replace(ds1.Rows(0)("NAME").ToString(),"&","&amp;") & "</ebiz:CustFullName>" &
         "            <ebiz:BillingAddress>" &
-        "            <ebiz:CompanyName>" & ds1.Rows(0)("BILLING_NAME").ToString() & "</ebiz:CompanyName>" &
-        "            <ebiz:Address1>" & ds1.Rows(0)("BILLING_STREET").ToString() & "</ebiz:Address1>" &
+        "            <ebiz:CompanyName>" & Replace(ds1.Rows(0)("BILLING_NAME").ToString(),"&","&amp;") & "</ebiz:CompanyName>" &
+        "            <ebiz:Address1>" & Replace(ds1.Rows(0)("BILLING_STREET").ToString(),"&","&amp;") & "</ebiz:Address1>" &
         "            <ebiz:Address2></ebiz:Address2>" &
         "            <ebiz:Address3/>" &
         "            <ebiz:City>" & ds1.Rows(0)("BILLING_CITY").ToString() & "</ebiz:City>" &
@@ -254,7 +255,7 @@ Partial Class eBiz_Customer
         "            <ebiz:ZipCode>" & ds1.Rows(0)("BILLING_POSTAL_CODE").ToString() & "</ebiz:ZipCode>" &
         "            <ebiz:Country>" & ds1.Rows(0)("BILLING_COUNTRY").ToString() & "</ebiz:Country>" &
         "            <ebiz:IsDefault>true</ebiz:IsDefault>" &
-        "            <ebiz:AddressId>" & ds1.Rows(0)("CUSTOMER_NO").ToString() & "_001</ebiz:AddressId>" &
+        "            <ebiz:AddressId>" & Replace(ds1.Rows(0)("CUSTOMER_NO").ToString(),"&","&amp;") & "_001</ebiz:AddressId>" &
         "            </ebiz:BillingAddress>" &
         "            <ebiz:DisplayDefaultResultPage>0</ebiz:DisplayDefaultResultPage>" &
         "            <ebiz:PayByType>CC</ebiz:PayByType>" &

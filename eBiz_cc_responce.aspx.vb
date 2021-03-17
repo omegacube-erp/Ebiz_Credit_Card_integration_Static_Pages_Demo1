@@ -33,7 +33,7 @@ Partial Class eBiz_cc_responce
                 Update_query("Update SD_INVOICE_CC_PAYMENT Set PAYMENT_RESPONSE='" & Request.QueryString.Get("TranResult") & "',CHANGED_DATE=SYSDATE,AUTH_TRANS_USER= UPPER('" & Session("user_id").ToString & "'),AUTH_TRANS_DATE=SYSDATE Where INVOICE_NO='" & Request.QueryString.Get("TransactionLookupKey") & "'")
 
             End If
-            If (Request.QueryString.Get("PTYPE") = "EMAIL") Then
+            If (Request.QueryString.Get("PTYPE") = "EMAIL" OR Request.QueryString.Get("PTYPE") = "ONLINE") Then
                 Response.Redirect("eBIZ_message.aspx")
             Else
                 Dim strFile1 As String = "TEST"

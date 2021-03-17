@@ -152,7 +152,8 @@ Partial Class Ebiz_integration
 
                     If (dsfromname.Tables(0).Rows.Count > 0) Then
                         If Not (Equals(dsfromname.Tables(0).Rows(0)(0), System.DBNull.Value)) Then
-                            FROM_NAME = dsfromname.Tables(0).Rows(0)(0)
+                            'FROM_NAME = dsfromname.Tables(0).Rows(0)(0)
+							FROM_NAME = Replace(dsfromname.Tables(0).Rows(0)(0),"&","&amp;")
                         Else
                             FROM_NAME = ""
                         End If
@@ -206,7 +207,7 @@ Partial Class Ebiz_integration
                     ds3.ReadXml(reader)
                     If (ds3.Tables("GetEbizWebFormURLResponse").Rows.Count > 0) Then
                         Update_query("UPDATE SD_INVOICE_CC_PAYMENT SET API_TOKEN='" & replace_c(ds3.Tables("GetEbizWebFormURLResponse").Rows(0)("GetEbizWebFormURLResult")) & "' WHERE INVOICE_NO='" & Invoice_no & "'")
-                        If (ptype = "CC") Then
+                        If (ptype = "CC" OR ptype="ONLINE") Then
                             Response.Redirect(ds3.Tables("GetEbizWebFormURLResponse").Rows(0)("GetEbizWebFormURLResult"))
                         Else
                             Dim strFile1 As String = "TEST"
@@ -278,8 +279,8 @@ Partial Class Ebiz_integration
             item_details = item_details & "<ebiz:TransactionLineItem>"
             item_details = item_details & "<ebiz:ProductRefNum>" & ds1.Rows(i)("ITEM_NO").ToString() & "</ebiz:ProductRefNum>"
             item_details = item_details & "<ebiz:SKU>" & ds1.Rows(i)("ITEM_NO").ToString() & "</ebiz:SKU>"
-            item_details = item_details & "<ebiz:ProductName>" & ds1.Rows(i)("DESCRIPTION").ToString() & "</ebiz:ProductName>"
-            item_details = item_details & "<ebiz:Description>" & ds1.Rows(i)("DESCRIPTION").ToString() & "</ebiz:Description>"
+            item_details = item_details & "<ebiz:ProductName>" & Replace(ds1.Rows(i)("DESCRIPTION").ToString(),"&","&amp;") & "</ebiz:ProductName>"
+            item_details = item_details & "<ebiz:Description>" & Replace(ds1.Rows(i)("DESCRIPTION").ToString(),"&","&amp;") & "</ebiz:Description>"
             item_details = item_details & "<ebiz:DiscountAmount>0.00</ebiz:DiscountAmount>"
             item_details = item_details & "<ebiz:DiscountRate>0.00</ebiz:DiscountRate>"
             item_details = item_details & "<ebiz:UnitOfMeasure>" & ds1.Rows(i)("PRICING_UOM").ToString() & "</ebiz:UnitOfMeasure>"
@@ -321,8 +322,8 @@ Partial Class Ebiz_integration
         "            <ebiz:EmailTemplateID/>" &
         "            <ebiz:EmailTemplateName/>" &
         "            <ebiz:SendEmailToCustomer>" & x1 & "</ebiz:SendEmailToCustomer>" &
-        "            <ebiz:CustomerId>" & ds1.Rows(0)("CUSTOMER_NO").ToString() & "</ebiz:CustomerId>" &
-        "            <ebiz:CustFullName>" & ds1.Rows(0)("NAME").ToString() & "</ebiz:CustFullName>" &
+        "            <ebiz:CustomerId>" & Replace(ds1.Rows(0)("CUSTOMER_NO").ToString(),"&","&amp;") & "</ebiz:CustomerId>" &
+        "            <ebiz:CustFullName>" & Replace(ds1.Rows(0)("NAME").ToString(),"&","&amp;") & "</ebiz:CustFullName>" &
         "            <ebiz:TransId>" & ds1.Rows(0)("INVOICE_NO").ToString() & "</ebiz:TransId>" &
         "            <ebiz:TransDetail>New Payment</ebiz:TransDetail>" &
         "            <ebiz:InvoiceNumber>" & ds1.Rows(0)("INVOICE_NO").ToString() & "</ebiz:InvoiceNumber>" &
@@ -341,8 +342,8 @@ Partial Class Ebiz_integration
         "            <ebiz:BillingAddress>" &
         "            <ebiz:FirstName>" & ds1.Rows(0)("CONTACT_NAME").ToString() & "</ebiz:FirstName>" &
         "            <ebiz:LastName>" & ds1.Rows(0)("CONTACT_NAME").ToString() & "</ebiz:LastName>" &
-        "            <ebiz:CompanyName>" & ds1.Rows(0)("BILLING_NAME").ToString() & "</ebiz:CompanyName>" &
-        "            <ebiz:Address1>" & ds1.Rows(0)("BILLING_STREET").ToString() & "</ebiz:Address1>" &
+        "            <ebiz:CompanyName>" & Replace(ds1.Rows(0)("BILLING_NAME").ToString(),"&","&amp;") & "</ebiz:CompanyName>" &
+        "            <ebiz:Address1>" & Replace(ds1.Rows(0)("BILLING_STREET").ToString(),"&","&amp;") & "</ebiz:Address1>" &
         "            <ebiz:Address2></ebiz:Address2>" &
         "            <ebiz:Address3/>" &
         "            <ebiz:City>" & ds1.Rows(0)("BILLING_CITY").ToString() & "</ebiz:City>" &
@@ -350,7 +351,7 @@ Partial Class Ebiz_integration
         "            <ebiz:ZipCode>" & ds1.Rows(0)("BILLING_POSTAL_CODE").ToString() & "</ebiz:ZipCode>" &
         "            <ebiz:Country>" & ds1.Rows(0)("BILLING_COUNTRY").ToString() & "</ebiz:Country>" &
         "            <ebiz:IsDefault>true</ebiz:IsDefault>" &
-        "            <ebiz:AddressId>" & ds1.Rows(0)("CUSTOMER_NO").ToString() & "_001</ebiz:AddressId>" &
+        "            <ebiz:AddressId>" & Replace(ds1.Rows(0)("CUSTOMER_NO").ToString(),"&","&amp;") & "_001</ebiz:AddressId>" &
         "            </ebiz:BillingAddress>" &
         "            <ebiz:ApprovedURL>" & TL_CLIENT & "eBiz_cc_responce.aspx?PTYPE=" & ptype & "</ebiz:ApprovedURL>" &
         "            <ebiz:DeclinedURL>" & TL_CLIENT & "eBiz_cc_responce.aspx?PTYPE=" & ptype & "</ebiz:DeclinedURL>" &
